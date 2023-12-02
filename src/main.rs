@@ -33,7 +33,7 @@ use std::env;
 
 fn main() {
     // most-recently-completed day and part
-    let finished_days = 1;
+    let finished_days = 2;
     let finished_parts = 1;
     let mrc = (finished_days, finished_parts);
     let completed_days = mrc.0;
