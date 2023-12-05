@@ -10,7 +10,7 @@ pub fn start() {
             let game = split.next().unwrap();
             let rest = split.next().unwrap();
 
-            let game = game
+            let _game = game
                 .split_ascii_whitespace()
                 .last()
                 .unwrap()
@@ -21,7 +21,7 @@ pub fn start() {
             let mut col_counts: [usize; 3] = [ 0, 0, 0 ];
 
             let rest = rest.split_terminator(";");
-            let valid = rest.into_iter()
+            let _valid = rest.into_iter()
                 .map(|x| {
                     let x = x.trim();
 
