@@ -84,30 +84,6 @@ struct Mapper {
 }
 
 impl Mapper {
-    /* fn from(vec: Vec<Vec<usize>>) -> Self {
-        let mut matches = HashMap::new();
-        for v in vec {
-            let dest = v[0];
-            let src = v[1];
-            let range = v[2];
-            for i in 0..range {
-                // <source, dest>
-                matches.insert(src + i, dest + i);
-            }
-        }
-        Self {
-            matches
-        }
-    }
-
-    fn map(&self, target: usize) -> usize {
-        if self.matches.contains_key(&target) {
-            *self.matches.get(&target).unwrap()
-        } else {
-            target
-        }
-    } */
-
     fn from(vec: Vec<Vec<usize>>) -> Self {
         let mut nvec = Vec::new();
         for v in vec {
@@ -127,5 +103,3 @@ impl Mapper {
         target
     }
 }
-
-// not 4076586390
