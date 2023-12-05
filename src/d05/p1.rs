@@ -1,7 +1,9 @@
+use std::collections::HashMap;
+
 use crate::util::file_reader;
 
 pub fn start() {
-    let input = file_reader("d05")
+    let (last, mut input) = file_reader("d05")
         .into_iter()
         .fold((Vec::new(), Vec::new()), |(mut current, mut overall), line| {
             if line == "" {
@@ -12,7 +14,7 @@ pub fn start() {
             }
             (current, overall)
         });
-    let input = input.1;
+    input.push(last);
     let seeds = input
         .get(0)
         .unwrap()
@@ -25,7 +27,7 @@ pub fn start() {
         .map(|s| s.parse::<usize>().unwrap())
         .collect::<Vec<_>>();
     println!("start: {:?}", seeds);
-    let maps = input[1..]
+    let mappers = input[1..]
         .into_iter()
         .map(|x| {
             x[1..]
@@ -35,57 +37,75 @@ pub fn start() {
                         .map(|x| x.parse::<usize>().unwrap())
                         .collect::<Vec<_>>()
                 })
-                .map(|v| Mapper::from(v[0], v[1], v[2]))
                 .collect::<Vec<_>>()
         })
+        .map(|v| Mapper::from(v))
         .collect::<Vec<_>>();
 
-    let out = seeds
+    let mut out = seeds
         .iter()
         .map(|x| {
             let mut x = *x;
-            for map_group in &maps {
-                for map in map_group {
-                    if map.can_map(x) {
-                        x = map.map(x);
-                    }
-                }
+            for mapper in &mappers {
+                x = mapper.map(x);
             }
             x
         })
         .collect::<Vec<_>>();
     println!("end: {:?}", out);
+    out.sort();
+    println!("lowest: {}", out[0])
 }
 
 #[derive(Debug)]
 struct Mapper {
-    dest: usize,
-    source: usize,
-    range: usize
+    // matches: HashMap<usize, usize>
+    tups: Vec<(usize, usize, usize)>
 }
 
 impl Mapper {
-    fn from(dest: usize, source: usize, range: usize) -> Self {
+    /* fn from(vec: Vec<Vec<usize>>) -> Self {
+        let mut matches = HashMap::new();
+        for v in vec {
+            let dest = v[0];
+            let src = v[1];
+            let range = v[2];
+            for i in 0..range {
+                // <source, dest>
+                matches.insert(src + i, dest + i);
+            }
+        }
         Self {
-            dest, source, range
+            matches
         }
     }
 
     fn map(&self, target: usize) -> usize {
-        if target > self.source && target <= self.source + self.range - 1 {
-            let mv = target - self.source;
-            self.dest + mv
+        if self.matches.contains_key(&target) {
+            *self.matches.get(&target).unwrap()
         } else {
             target
         }
-    }
+    } */
 
-    fn can_map(&self, target: usize) -> bool {
-        if target > self.source && target <= self.source + self.range - 1 {
-
-            true
-        } else {
-            false
+    fn from(vec: Vec<Vec<usize>>) -> Self {
+        let mut nvec = Vec::new();
+        for v in vec {
+            nvec.push((v[0], v[1], v[2]));
+        }
+        Self {
+            tups: nvec
         }
     }
+
+    fn map(&self, target: usize) -> usize {
+        for tup in &self.tups {
+            if target - tup.1 < tup.2 {
+                return tup.0 + target - tup.1
+            }
+        }
+        target
+    }
 }
+
+// not 4076586390
