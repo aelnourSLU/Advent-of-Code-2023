@@ -26,7 +26,7 @@ pub fn start() {
         })  
         .collect::<Vec<_>>();
     let mut copy_list: Vec<usize> = Vec::new();
-    let mut process = |(num, winners, have), mut v: &mut Vec<usize>| {
+    let process = |(num, winners, have), v: &mut Vec<usize>| {
         let mut count = 0;
             for h in &have {
                 for w in &winners {
@@ -45,7 +45,7 @@ pub fn start() {
         cards
             .iter()
             .filter(|&y| x == y.0)
-            .reduce(|acc, e| e)
+            .reduce(|_, e| e)
             .unwrap()
             .to_owned()
     };
@@ -55,7 +55,7 @@ pub fn start() {
     }
 
     let mut scratchcards = copy_list.len() + cards.len();
-    for i in 0..9999 {
+    for _ in 0..9999 {
         let mut next_cards = Vec::new();
         let mut next_list = Vec::new();
         for x in &copy_list {

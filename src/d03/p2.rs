@@ -44,7 +44,7 @@ pub fn start() {
     let sym_caps = re.captures_iter(&input);
     let mut syms = Vec::new();
     for cap in sym_caps {
-        let (_, [thing]) = cap.extract();
+        let (_, [_]) = cap.extract();
         let pos = cap.get(1).unwrap().start() as isize;
         syms.push(pos);
     }

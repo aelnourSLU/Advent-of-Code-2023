@@ -15,7 +15,7 @@ pub fn start() {
             let have = c.next().unwrap()
                 .split_ascii_whitespace()
                 .map(|s| s.parse::<usize>().unwrap())
-                .collect::<Vec<_>>();;
+                .collect::<Vec<_>>();
             let mut count = 0;
             for h in &have {
                 for w in &winners {
@@ -26,7 +26,7 @@ pub fn start() {
             }
             let mut out = 0;
             if count >= 1 { out = 1}
-            for i in 1..count {
+            for _ in 1..count {
                 out *= 2;
             }
             out

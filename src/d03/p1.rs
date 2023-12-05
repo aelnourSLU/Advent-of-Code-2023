@@ -44,7 +44,7 @@ pub fn start() {
     let sym_caps = re.captures_iter(&input);
     let mut syms = Vec::new();
     for cap in sym_caps {
-        let (_, [thing]) = cap.extract();
+        let (_, [_]) = cap.extract();
         let pos = cap.get(1).unwrap().start() as isize;
         syms.push(pos);
     }
@@ -60,7 +60,7 @@ pub fn start() {
             }
         }
     }
-    let mut sum = parts_list.iter().map(|(&x, _, _)| x).collect::<Vec<_>>();
+    let sum = parts_list.iter().map(|(&x, _, _)| x).collect::<Vec<_>>();
     let sum: usize = sum.iter().sum();
     println!("{:?}", sum);
 }
