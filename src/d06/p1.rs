@@ -21,10 +21,9 @@ pub fn start() {
         .collect::<Vec<_>>();
     println!("input: {:?}", input);
     let mut out = Vec::new();
-    for i in 0..=input.len() + 1 {
+    for i in 0..input[0].len() {
         let time = input[0][i];
         let distance = input[1][i];
-        println!("Operating on time {}, distance {}", time, distance);
         let mut hold = Vec::new();
         for hold_time in 0..=time {
             let ntime = time - hold_time;
@@ -35,11 +34,9 @@ pub fn start() {
             .into_iter()
             .filter(|&x| x > distance)
             .collect::<Vec<_>>();
-        println!("hold: {}", hold.len());
         out.push(hold.len())
     }
-    println!("{:?}", input);
-    println!("{:?}", out.iter().product::<usize>());
+    println!("Output: {:?}", out.iter().product::<usize>());
 }
 
-// not 25600
+// solution: 281600
