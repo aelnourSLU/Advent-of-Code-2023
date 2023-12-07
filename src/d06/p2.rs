@@ -32,4 +32,4 @@ pub fn start() {
     println!("Number of hold times: {:?}", hold.len());
 }
 
-// correct solution: 33875953
+// solution: 33875953
