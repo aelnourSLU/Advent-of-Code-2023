@@ -32,7 +32,7 @@ pub fn start() {
         .chars()
         .collect::<VecDeque<_>>();
 
-    let mut curr_node_str_vec = nodes
+    let curr_node_str_vec = nodes
         .iter()
         .filter(|n| n.ends_a())
         .map(|n| n.name.clone())
